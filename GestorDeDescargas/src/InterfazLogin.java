@@ -20,12 +20,12 @@ public class InterfazLogin extends JPanel {
 		setBorder(new EmptyBorder(20, 10, 50, 10));
 		
 		JLabel labelUsuario = new JLabel("Usuario");
-		final JTextField usuario = new JTextField();
+		final JTextField usuario = new JTextField(); usuario.setText("asoriano");
 		add(labelUsuario);
 		add(usuario);
 		
 		JLabel labelPass = new JLabel("Contraseña");
-		final JPasswordField pass = new JPasswordField();
+		final JPasswordField pass = new JPasswordField(); pass.setText("1234");
 		add(labelPass);
 		add(pass);
 		
@@ -34,17 +34,36 @@ public class InterfazLogin extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String stringUsuario = usuario.getText();
 					//getPassword() -> devuelve un array de caracteres (char[])
-					//Para pasar el el contenido del array a String -> String.valueOg()
+					//Para pasar el el contenido del array a String -> String.valueOf()
 				String stringPass = String.valueOf(pass.getPassword());
+				String passObtenido ="";
 				
 				String sql = "SELECT contraseña FROM usuarios WHERE usuario='" + stringUsuario + "';";
+				System.out.println(sql);
+
 				
+				try {
+					ResultSet resultadoConsulta = BaseDatos.consultar(sql);
+
+					while (resultadoConsulta.next()) {
+						System.out.println(resultadoConsulta);
+						passObtenido = resultadoConsulta.getString("contraseña");
+					}	
+				}
 				
-				ResultSet resultadoConsulta =  BaseDatos.consultar(sql);
+				catch (Exception a) {
+					System.out.println(a.toString());
+				}
+
 				
-				/*while(resultadoConsulta.next()) {
-					
-				}*/
+				if (stringPass.equals(passObtenido)) {
+					System.out.println("Las contraseñas coinciden");
+				}
+				else {
+					System.out.println("El usuario o la contraseña no coinciden");
+				}
+
+
 			}
 		});
 		

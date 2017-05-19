@@ -16,6 +16,7 @@ public class InterfazGrafica {
 		
 		final JFrame ventana = new JFrame("Gestor de descargas");
 		ventana.setBounds(500, 150, 500, 250);
+		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menu = new JMenuBar();
 		

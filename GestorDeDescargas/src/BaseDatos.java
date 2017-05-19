@@ -15,7 +15,7 @@ public class BaseDatos {
 			conn = DriverManager.getConnection("jdbc:mysql://server:3306/midb", "root", "");
 			sentencia = conn.createStatement();
 			System.out.println("¡Conexión correcta!");
-			
+
 			resultadoConsulta = sentencia.executeQuery(consultaSQL);
 
 		}
