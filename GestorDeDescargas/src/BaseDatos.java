@@ -29,5 +29,23 @@ public class BaseDatos {
 
 	
 	}
+	
+	public static boolean actualizar (String consultaSQL) {
+		try {
+			Connection conn;
+			conn = DriverManager.getConnection("jdbc:mysql://server:3306/midb", "root", "");
+			sentencia = conn.createStatement();
+			System.out.println("¡Conexión correcta!");
+
+			sentencia.executeUpdate(consultaSQL);
+			return true;
+		}
+		
+		catch (Exception e) {
+			System.out.println("Conn ERROR! " + e.toString());
+			return false;
+		}
+		
+	}
 }
 
