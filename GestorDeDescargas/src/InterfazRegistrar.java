@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -57,13 +58,78 @@ public class InterfazRegistrar extends JPanel {
 		JButton botonAceptar = new JButton("Aceptar");
 		botonAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//guardar en variables tots els camps
+				boolean todoCorrecto = true;
+				String mensajeError = "";
+				
+				String stringUsuario = usuario.getText();
+				String stringPass1 = String.valueOf(pass.getPassword());
+				String stringPass2 = String.valueOf(pass2.getPassword());
+				String stringNombre = nombre.getText();
+				String stringApellidos = apellidos.getText();
+				String stringEmail = email.getText();
+				String stringFechaNac = nacimiento.getText();
+				
+				boolean comprobarUsuario;
+				
+				if (stringUsuario.length() == 0) {
+					mensajeError += "Usuario incorrecto \n";
+					todoCorrecto = false;
+					
+				}
+				
+				boolean comprobarPass = stringPass1.equals(stringPass2);
+				if (comprobarPass == false) {
+						//Comprobar que la contrasenya no estiga buida
+					comprobarPass = (stringPass1.length() > 0 && stringPass2.length() > 0);
+					if (comprobarPass == false) {
+						mensajeError += "Contraseña incorrecta \n";
+						todoCorrecto = false;
+					}
+				}
+				
+				boolean comprobarEmail = comprobarEmailOk(stringEmail);
+				if (comprobarEmail == false) {
+					mensajeError += "El email es incorrecto \n";
+					todoCorrecto = false;
+				}
+				System.out.println("hola");
+				
+				if (todoCorrecto == true) {
+					BaseDatos.actualizar("INSERT INTO usuarios (usuario, contraseña, nombre, apellidos, email, fnacimiento) VALUES ('"+stringUsuario+"', '"+stringPass1+"', '"+stringNombre+"', '"+stringApellidos+"', '"+stringEmail+"', '"+stringFechaNac+"')");
+				}
+				
+				else {
+					JOptionPane.showMessageDialog(null, mensajeError);
+				}
+				
+				
 			};
 		});
 
 		add(botonAceptar);
 		
+		//JOptionPane.showMessageDialog(null, "");
+	}
+	
+	public boolean comprobarEmailOk(String email) {
+		int tamañoEmail = email.length();
 		
+		boolean comprobar = true;
+		
+		for(int i = 0; i < tamañoEmail; i++) {
+			if (email.substring(i, i + 1).equals("@")) {
+				if (email.substring((tamañoEmail - 3), tamañoEmail).equals(".es") || email.substring((tamañoEmail - 4), tamañoEmail).equals(".com")) {
+					System.out.println("El email es correcto");
+				}
+			}
+			
+			else {
+				System.out.println("El email es incorrecto");
+				comprobar = false;
+			}
+		}
+		return comprobar;
+
 	}
 
 }
