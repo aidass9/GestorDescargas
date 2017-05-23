@@ -1,10 +1,13 @@
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 
 
 public class InterfazGrafica {
@@ -12,6 +15,8 @@ public class InterfazGrafica {
 	static InterfazRegistrar registrar;
 	static JFrame ventana;
 	static JMenuBar menu;
+		//Acceder a la clase Usuario
+	public static Usuario sesionUsuario;
 	
 	public static void interfazGrafica() {
 		
@@ -27,6 +32,8 @@ public class InterfazGrafica {
 		menuSesion();
 		menuFTP();
 		
+		ventanaBienvenida();
+		
 		ventana.setJMenuBar(menu);
 		ventana.setVisible(true);
 	}
@@ -41,17 +48,15 @@ public class InterfazGrafica {
 		
 		sesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				mostrarVentanaSesion();
 
-				ventana.getContentPane().removeAll();
-				ventana.add(login);
-				ventana.revalidate();
-				ventana.repaint();
 
 			}
 		});
 		
 		registro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent a) {
+
 				ventana.getContentPane().removeAll();
 				ventana.add(registrar);
 				ventana.revalidate();
@@ -74,6 +79,41 @@ public class InterfazGrafica {
 		ftp.add(bajar);
 		
 		menu.add(ftp);
+	}
+	
+	public static void mostrarVentanaSesion() {
+		ventana.getContentPane().removeAll();
+		ventana.add(login);
+		ventana.revalidate();
+		ventana.repaint();
+	}
+	
+	public static void ventanaBienvenida() {
+		ventana.getContentPane().removeAll();
+		
+		JPanel ventanaBienvenida = new JPanel();
+		
+		ventanaBienvenida.setLayout(new GridLayout(1, 1, 20, 10));
+		
+		JLabel mensaje = new JLabel("Bienvenid@ al gestor de descargas", JLabel.CENTER);
+		
+		ventanaBienvenida.add(mensaje);
+		
+		ventana.add(ventanaBienvenida);
+	}
+	
+	public static void ventanaBienvenidaSesion() {
+		ventana.getContentPane().removeAll();
+		
+		JPanel ventanaBienvenidaSesion = new JPanel();
+		
+		ventanaBienvenidaSesion.setLayout(new GridLayout(1, 1, 20, 10));
+		
+		//JLabel mensaje = new JLabel("Bienvenid@ al gestor de descargas" + InterfazRegistrar , JLabel.CENTER);
+		
+		//ventanaBienvenidaSesion.add(mensaje);
+		
+		ventana.add(ventanaBienvenidaSesion);
 	}
 	
 }

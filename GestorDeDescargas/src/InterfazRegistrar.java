@@ -1,6 +1,9 @@
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,48 +15,60 @@ import javax.swing.border.EmptyBorder;
 
 
 public class InterfazRegistrar extends JPanel {
-	
+	JLabel labelUsuario;
+	JLabel labelPass;
+	JLabel labelPass2;
+	JLabel labelNombre;
+	JLabel labelApellidos;
+	JLabel labelEmail;
+	JLabel labelNacimiento;
+
 	InterfazRegistrar() {
 		setLayout(new GridLayout(8, 2, 10, 5));
 		setBorder(new EmptyBorder(20, 10, 10, 10));
 		
-		JLabel labelUsuario = new JLabel("Usuario");
-		final JTextField usuario = new JTextField();
+		labelUsuario = new JLabel("Usuario");
+		final JTextField usuario = new JTextField(); usuario.setText("aida");
 		add(labelUsuario);
 		add(usuario);
 		
-		JLabel labelPass = new JLabel("Contraseña");
-		final JPasswordField pass = new JPasswordField();
+		labelPass = new JLabel("Contraseña");
+		final JPasswordField pass = new JPasswordField(); pass.setText("4321");
 		add(labelPass);
 		add(pass);
 		
-		JLabel labelPass2 = new JLabel("Confirmar contraseña");
-		final JPasswordField pass2 = new JPasswordField();
+		labelPass2 = new JLabel("Confirmar contraseña");
+		final JPasswordField pass2 = new JPasswordField(); pass2.setText("4321");
 		add(labelPass2);
 		add(pass2);
 		
-		JLabel labelNombre = new JLabel("Nombre");
-		final JTextField nombre = new JTextField();
+		labelNombre = new JLabel("Nombre");
+		final JTextField nombre = new JTextField(); nombre.setText("Aida");
 		add(labelNombre);
 		add(nombre);
 		
-		JLabel labelApellidos = new JLabel("Apellidos");
-		final JTextField apellidos = new JTextField();
+		labelApellidos = new JLabel("Apellidos");
+		final JTextField apellidos = new JTextField(); apellidos.setText("Soriano");
 		add(labelApellidos);
 		add(apellidos);
 		
-		JLabel labelEmail = new JLabel("Email");
-		final JTextField email = new JTextField();
+		labelEmail = new JLabel("Email");
+		final JTextField email = new JTextField(); email.setText("aida@gmail.com");
 		add(labelEmail);
 		add(email);
 		
-		JLabel labelNacimiento = new JLabel("Fecha nacimiento (dd/mm/aaaa)");
-		final JTextField nacimiento = new JTextField();
+		labelNacimiento = new JLabel("Fecha nacimiento (dd/mm/aaaa)");
+		final JTextField nacimiento = new JTextField(); nacimiento.setText("20/05/2000");
 		add(labelNacimiento);
 		add(nacimiento);
 		
-		JLabel blanco = new JLabel();
-		add(blanco);
+		JButton botonInicio = new JButton("Volver");
+		botonInicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InterfazGrafica.interfazGrafica();
+			}
+		});
+		add(botonInicio);
 		
 		JButton botonAceptar = new JButton("Aceptar");
 		botonAceptar.addActionListener(new ActionListener() {
@@ -116,7 +131,7 @@ public class InterfazRegistrar extends JPanel {
 					todoCorrecto = false;
 				}
 				
-					//COmprobar email
+					//Comprobar email
 				
 				boolean comprobarEmail = comprobarEmailOk(stringEmail);
 				if (comprobarEmail == false) {
@@ -124,17 +139,47 @@ public class InterfazRegistrar extends JPanel {
 					todoCorrecto = false;
 				}
 				
+				
+					//Conseguir IP
+				
+				/*String ip = "";
+				Socket socket = new Socket();
+				ip = socket.connect(new InetSocketAddress("google.com", 80));
+				//String ip = InetSocketAddress("google.com", 80);
+				System.out.println(socket.getLocalAddress());*/
+				
+				String ip ="";
+				
+				try {
+					ip = InetAddress.getLocalHost().getHostAddress();
+				}
+				
+				catch (Exception o) {
+					System.out.println(o.toString());
+				}
+				
 					//Introducir registro
 				
 				if (todoCorrecto == true) {
-					BaseDatos.actualizar("INSERT INTO usuarios (usuario, contraseña, nombre, apellidos, email, fnacimiento) VALUES ('"+stringUsuario+"', '"+stringPass1+"', '"+stringNombre+"', '"+stringApellidos+"', '"+stringEmail+"', '"+stringFechaNac+"')");
+					boolean resultadoRegistrar;
+					resultadoRegistrar = BaseDatos.actualizar("INSERT INTO usuarios (usuario, contraseña, nombre, apellidos, email, fnacimiento, ip) VALUES ('"+stringUsuario+"', '"+stringPass1+"', '"+stringNombre+"', '"+stringApellidos+"', '"+stringEmail+"', '"+stringFechaNac+"', '"+ip+"')");
+					
+					if (resultadoRegistrar == true) {
+						JOptionPane.showMessageDialog(null, "¡Registro correcto!");
+						InterfazGrafica.mostrarVentanaSesion();
+					}
+					
+					else {
+							//Salta cuando hay un error en la base de datos
+						JOptionPane.showMessageDialog(null, "¡Registro fallado!");
+					}
+					
 				}
 				
 				else {
 					JOptionPane.showMessageDialog(null, mensajeError);
 				}
-				
-				
+
 			};
 		});
 
@@ -158,7 +203,6 @@ public class InterfazRegistrar extends JPanel {
 			System.out.println("El email es incorrecto");
 		}
 		return comprobar;
-
 	}
 
 }
