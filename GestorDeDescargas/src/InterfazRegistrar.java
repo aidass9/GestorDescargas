@@ -69,30 +69,62 @@ public class InterfazRegistrar extends JPanel {
 				String stringEmail = email.getText();
 				String stringFechaNac = nacimiento.getText();
 				
+					//Comprobar usuario
+				
 				boolean comprobarUsuario;
 				
 				if (stringUsuario.length() == 0) {
-					mensajeError += "Usuario incorrecto \n";
+					mensajeError += "- Usuario incorrecto \n";
 					todoCorrecto = false;
 					
 				}
 				
-				boolean comprobarPass = stringPass1.equals(stringPass2);
-				if (comprobarPass == false) {
+					//Comprobar contraseña
+				
+				boolean comprobarPass = (stringPass1.length() > 0 && stringPass2.length() > 0);
+				
+				if (comprobarPass == true) {
 						//Comprobar que la contrasenya no estiga buida
-					comprobarPass = (stringPass1.length() > 0 && stringPass2.length() > 0);
+					comprobarPass = stringPass1.equals(stringPass2);
+
 					if (comprobarPass == false) {
-						mensajeError += "Contraseña incorrecta \n";
+						mensajeError += "- Contraseña incorrecta \n";
 						todoCorrecto = false;
 					}
 				}
+				else {
+					mensajeError += "- Contraseña no introducida \n";
+					todoCorrecto = false;
+					
+				}
+				
+					//Comprobar nombre
+				
+				boolean comprobarNombre = (stringNombre.length() > 0);
+				
+				if (comprobarNombre == false) {
+					mensajeError += "- Nombre no introducido \n";
+					todoCorrecto = false;
+				}
+				
+					//Comprobar apellidos
+				
+				boolean comprobarApellidos = (stringApellidos.length() > 0);
+				
+				if (comprobarApellidos == false) {
+					mensajeError += "- Apellidos no introducidos \n";
+					todoCorrecto = false;
+				}
+				
+					//COmprobar email
 				
 				boolean comprobarEmail = comprobarEmailOk(stringEmail);
 				if (comprobarEmail == false) {
-					mensajeError += "El email es incorrecto \n";
+					mensajeError += "- El email es incorrecto \n";
 					todoCorrecto = false;
 				}
-				System.out.println("hola");
+				
+					//Introducir registro
 				
 				if (todoCorrecto == true) {
 					BaseDatos.actualizar("INSERT INTO usuarios (usuario, contraseña, nombre, apellidos, email, fnacimiento) VALUES ('"+stringUsuario+"', '"+stringPass1+"', '"+stringNombre+"', '"+stringApellidos+"', '"+stringEmail+"', '"+stringFechaNac+"')");
@@ -107,26 +139,23 @@ public class InterfazRegistrar extends JPanel {
 		});
 
 		add(botonAceptar);
-		
-		//JOptionPane.showMessageDialog(null, "");
 	}
 	
 	public boolean comprobarEmailOk(String email) {
 		int tamañoEmail = email.length();
 		
-		boolean comprobar = true;
+		boolean comprobar = false;
 		
 		for(int i = 0; i < tamañoEmail; i++) {
 			if (email.substring(i, i + 1).equals("@")) {
 				if (email.substring((tamañoEmail - 3), tamañoEmail).equals(".es") || email.substring((tamañoEmail - 4), tamañoEmail).equals(".com")) {
 					System.out.println("El email es correcto");
+					comprobar = true;
 				}
 			}
-			
-			else {
-				System.out.println("El email es incorrecto");
-				comprobar = false;
-			}
+		}
+		if (comprobar == false){
+			System.out.println("El email es incorrecto");
 		}
 		return comprobar;
 
