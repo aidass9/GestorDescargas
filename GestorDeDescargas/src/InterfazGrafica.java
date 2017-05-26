@@ -75,10 +75,11 @@ public class InterfazGrafica {
 		JMenuItem listar = new JMenuItem("Listar FTP");
 		listar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (sesionUsuario == null) {
-					System.out.println("Inicia sesión");
-				}
-				
+				TablaListar tablaListar = new TablaListar();
+				ventana.getContentPane().removeAll();
+				ventana.add(tablaListar);
+				ventana.revalidate();
+				ventana.repaint();
 			}
 		});
 		JMenuItem subir = new JMenuItem("Subir archivo");
