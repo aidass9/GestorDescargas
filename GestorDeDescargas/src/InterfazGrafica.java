@@ -15,7 +15,9 @@ public class InterfazGrafica {
 	static InterfazRegistrar registrar;
 	static JFrame ventana;
 	static JMenuBar menu;
-		//Acceder a la clase Usuario
+	static JMenu ftp;
+	
+		//Acceder a la clase Usuario - objeto de la clase Usuario
 	public static Usuario sesionUsuario;
 	
 	public static void interfazGrafica() {
@@ -69,8 +71,16 @@ public class InterfazGrafica {
 	}
 	
 	public static void menuFTP() {
-		JMenu ftp = new JMenu("FTP");
+		ftp = new JMenu("FTP");
 		JMenuItem listar = new JMenuItem("Listar FTP");
+		listar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (sesionUsuario == null) {
+					System.out.println("Inicia sesión");
+				}
+				
+			}
+		});
 		JMenuItem subir = new JMenuItem("Subir archivo");
 		JMenuItem bajar = new JMenuItem("Bajar archivo");
 		
@@ -79,6 +89,8 @@ public class InterfazGrafica {
 		ftp.add(bajar);
 		
 		menu.add(ftp);
+		
+		ftp.setVisible(false);
 	}
 	
 	public static void mostrarVentanaSesion() {
@@ -109,11 +121,15 @@ public class InterfazGrafica {
 		
 		ventanaBienvenidaSesion.setLayout(new GridLayout(1, 1, 20, 10));
 		
-		//JLabel mensaje = new JLabel("Bienvenid@ al gestor de descargas" + InterfazRegistrar , JLabel.CENTER);
+		JLabel mensaje = new JLabel("Hola " + sesionUsuario.nombre , JLabel.CENTER);
 		
-		//ventanaBienvenidaSesion.add(mensaje);
+		ftp.setVisible(true);
 		
+		ventanaBienvenidaSesion.add(mensaje);
+
 		ventana.add(ventanaBienvenidaSesion);
+		ventana.repaint();
+		ventana.revalidate();
 	}
 	
 }

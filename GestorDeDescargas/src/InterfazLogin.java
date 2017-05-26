@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -72,16 +73,18 @@ public class InterfazLogin extends JPanel {
 				
 				if (stringPass.equals(passObtenido)) {
 					System.out.println("Las contraseñas coinciden");
-					InterfazGrafica.ventanaBienvenida();
+
 					iniciarSesion();
 					
 				}
 				else {
 					System.out.println("El usuario o la contraseña no coinciden");
+					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecto");
 				}
 
-
+					
 			}
+			
 		});
 		
 		add(botonAceptar);
@@ -106,14 +109,15 @@ public class InterfazLogin extends JPanel {
 				fnacimiento = resultadoConsulta.getString("fnacimiento");
 				bajadas = resultadoConsulta.getInt("bajadas");
 				subidas = resultadoConsulta.getInt("subidas"); //els que van en "" son el mateix nom que la base de datos
-			}	
+			}
+			InterfazGrafica.sesionUsuario = new Usuario(usuario, contraseña, nombre, apellidos, email, fnacimiento, bajadas, subidas);
+			InterfazGrafica.ventanaBienvenidaSesion();
 		}
 		
 		catch (Exception a) {
 			System.out.println(a.toString());
 		}
 		
-		//InterfazGrafica.sesionUsuario = new Usuario();
 	}
 
 }
