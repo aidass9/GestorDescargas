@@ -162,7 +162,7 @@ public class InterfazRegistrar extends JPanel {
 				
 				if (todoCorrecto == true) {
 					boolean resultadoRegistrar;
-					resultadoRegistrar = BaseDatos.actualizar("INSERT INTO usuarios (usuario, contraseña, nombre, apellidos, email, fnacimiento, ip) VALUES ('"+stringUsuario+"', '"+stringPass1+"', '"+stringNombre+"', '"+stringApellidos+"', '"+stringEmail+"', '"+stringFechaNac+"', '"+ip+"')");
+					resultadoRegistrar = BaseDatos.actualizar("INSERT INTO usuarios (usuario, contraseña, nombre, apellidos, email, fnacimiento, bajadas, subidas, ip) VALUES ('"+stringUsuario+"', '"+stringPass1+"', '"+stringNombre+"', '"+stringApellidos+"', '"+stringEmail+"', '"+stringFechaNac+"', 0 , 0,  '"+ip+"')");
 					
 					if (resultadoRegistrar == true) {
 						JOptionPane.showMessageDialog(null, "¡Registro correcto!");
