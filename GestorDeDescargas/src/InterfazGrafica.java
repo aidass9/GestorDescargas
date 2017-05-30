@@ -82,7 +82,18 @@ public class InterfazGrafica {
 				ventana.repaint();
 			}
 		});
+		
 		JMenuItem subir = new JMenuItem("Subir archivo");
+		subir.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				IntefazSubirFTP interfazSubirFTP = new IntefazSubirFTP();
+				ventana.getContentPane().removeAll();
+				ventana.add(interfazSubirFTP);
+				ventana.revalidate();
+				ventana.repaint();
+			}
+		});
+		
 		JMenuItem bajar = new JMenuItem("Bajar archivo");
 		
 		ftp.add(listar);
