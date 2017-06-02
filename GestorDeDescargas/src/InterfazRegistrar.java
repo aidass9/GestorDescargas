@@ -139,6 +139,15 @@ public class InterfazRegistrar extends JPanel {
 					todoCorrecto = false;
 				}
 				
+					//Comprobar apellidos
+				
+				boolean comprobarNacimiento = (stringFechaNac.length() > 0);
+				
+				if (comprobarNacimiento == false) {
+					mensajeError += "- Fecha no introducida \n";
+					todoCorrecto = false;
+				}
+				
 				
 					//Conseguir IP
 				
