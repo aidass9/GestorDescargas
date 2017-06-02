@@ -1,7 +1,11 @@
 
 public class Usuario {
 	
-	String usuario, contraseña, nombre, apellidos, email, nacimiento;
+	String usuario, contraseña;
+	static String nombre;
+	String apellidos;
+	String email;
+	String nacimiento;
 	int subidos, bajados;
 		
 		//varibles que recibe de InterfazGrafica -> stringNombreVariable

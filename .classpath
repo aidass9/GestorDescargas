@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="GestorDeDescargas/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/asoriano/Escriptori/commons-net-3.6/commons-net-3.6.jar"/>
-	<classpathentry kind="lib" path="/home/asoriano/Baixades/mysql-connector-java-5.1.42-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aida/Downloads/librerias/commons-net-3.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aida/Downloads/librerias/mysql-connector-java-5.1.23-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

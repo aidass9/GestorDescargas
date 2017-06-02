@@ -1,14 +1,35 @@
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.swing.JOptionPane;
 
 public class SubirFTP extends Thread {
+	
+	File archivoLocal;
+	String archivoServidor;
+	
+	static ArrayList<FTPFile> archivos;
+	
+	SubirFTP(String archivoLocal) {
+		this.archivoLocal = new File(archivoLocal);
+		this.archivoServidor = archivoLocal;
+		
+	}
 		
 	public void run() {
 		String ftpServer = "10.2.1.148";
 		String ftpUsuario = "ftpClient";
 		String ftpPass = "1234";
 		
-		int subidos, bajados;
+		int subidos;
 			
 		FTPClient clienteFTP = new FTPClient();
 			
@@ -18,14 +39,26 @@ public class SubirFTP extends Thread {
 			System.out.println("Conexión FTP correcta");
 				
 			clienteFTP.enterLocalPassiveMode();
+			
+			InputStream streamLocal = new FileInputStream(archivoLocal);
+			
+			boolean done = clienteFTP.storeFile(archivoServidor, streamLocal);
+			streamLocal.close();
+			archivos = new ArrayList<FTPFile>(Arrays.asList(clienteFTP.listFiles()));
+			JOptionPane.showMessageDialog(null, "¡Archivo subido!");
+			
+			//clienteFTP.changeWorkingDirectory("");
+			
+			clienteFTP.logout();
+			clienteFTP.disconnect();
+			
+			BaseDatos.actualizar("UPDATE usuarios SET subidas = subidas + 1 WHERE usuario = '" + Usuario.nombre + "' ");
 				
-			clienteFTP.changeWorkingDirectory("");
-			
-			
 		}
 			
 		catch (Exception e) {
-			System.out.println(e.toString());
+			System.out.println("Fallo al subir el archivo");
+			JOptionPane.showMessageDialog(null, "¡Fallo al subir el archivo!");
 		}
 	}
 	

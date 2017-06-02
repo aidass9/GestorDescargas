@@ -42,7 +42,7 @@ public class IntefazSubirFTP extends JPanel {
 				
 				String stringArchivo = nombreArchivo.getText();
 				
-				SubirFTP hiloSubirFTP = new SubirFTP();
+				SubirFTP hiloSubirFTP = new SubirFTP(stringArchivo);
 				hiloSubirFTP.start();
 			}
 		});
