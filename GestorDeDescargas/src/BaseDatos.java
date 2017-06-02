@@ -8,11 +8,17 @@ public class BaseDatos {
 	
 	static Statement sentencia;
 	
+	static String server = "jdbc:mysql://localhost:3306/midb";
+	static String usuario = "root";
+	static String pass = "1234";
+	
 	public static ResultSet consultar (String consultaSQL) {
 		ResultSet resultadoConsulta = null;
 		try {
 			Connection conn;
-			conn = DriverManager.getConnection("jdbc:mysql://server:3306/midb", "root", "");
+			conn = DriverManager.getConnection(server, usuario, pass);
+			//conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/midb", "root", "1234");
+			//conn = DriverManager.getConnection("jdbc:mysql://server:3306/midb", "root", "");
 			sentencia = conn.createStatement();
 			System.out.println("¡Conexión correcta!");
 
@@ -33,7 +39,9 @@ public class BaseDatos {
 	public static boolean actualizar (String consultaSQL) {
 		try {
 			Connection conn;
-			conn = DriverManager.getConnection("jdbc:mysql://server:3306/midb", "root", "");
+			
+			conn = DriverManager.getConnection(server, usuario, pass);
+			//conn = DriverManager.getConnection("jdbc:mysql://server:3306/midb", "root", "");
 			sentencia = conn.createStatement();
 			System.out.println("¡Conexión correcta!");
 
