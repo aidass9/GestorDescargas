@@ -95,6 +95,15 @@ public class InterfazGrafica {
 		});
 		
 		JMenuItem bajar = new JMenuItem("Bajar archivo");
+		bajar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InterfazBajarFTP interfazBajarFTP = new InterfazBajarFTP();
+				ventana.getContentPane().removeAll();
+				ventana.add(interfazBajarFTP);
+				ventana.revalidate();
+				ventana.repaint();
+			}
+		});
 		
 		ftp.add(listar);
 		ftp.add(subir);
