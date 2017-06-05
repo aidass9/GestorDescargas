@@ -26,13 +26,17 @@ public class SubirFTP extends Thread {
 		
 	public void run() {
 		
-		/*String ftpServer = "ftp.rediris.es";
-		String ftpUsuario = "";
-		String ftpPass = "";*/
+		/*String ftpServer = "ftp.drivehq.com";
+		String ftpUsuario = "boriues";
+		String ftpPass = "ftpdrivehq123";*/
 		
-		String ftpServer = "10.2.1.148";
-		String ftpUsuario = "ftpClient";
+		String ftpServer = "localhost";
+		String ftpUsuario = "aida";
 		String ftpPass = "1234";
+		
+		/*String ftpServer = "10.2.1.148";
+		String ftpUsuario = "ftpClient";
+		String ftpPass = "1234";*/
 		
 		int subidos;
 			

@@ -16,6 +16,7 @@ public class InterfazBajarFTP extends JPanel {
 	JTextField nombreArchivo;
 	JLabel labelBlanco;
 	JLabel labelBlanco2;
+	static String stringArchivo;
 	
 	InterfazBajarFTP() {
 		setLayout(new GridLayout(3, 1, 10, 5));
@@ -40,7 +41,7 @@ public class InterfazBajarFTP extends JPanel {
 		add(botonBajar);
 		botonBajar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String stringArchivo = nombreArchivo.getText();
+				stringArchivo = nombreArchivo.getText();
 				
 				//BajarFTP hiloBajarFTP = new BajarFTP(stringArchivo);
 				//hiloBajarFTP.start();

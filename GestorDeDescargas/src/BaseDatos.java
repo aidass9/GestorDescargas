@@ -30,9 +30,6 @@ public class BaseDatos {
 			System.out.println("Conn ERROR! " + e.toString());
 		}
 		return resultadoConsulta;
-		
-		
-
 	
 	}
 	
