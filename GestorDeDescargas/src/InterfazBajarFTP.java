@@ -43,8 +43,8 @@ public class InterfazBajarFTP extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				stringArchivo = nombreArchivo.getText();
 				
-				//BajarFTP hiloBajarFTP = new BajarFTP(stringArchivo);
-				//hiloBajarFTP.start();
+				BajarFTP hiloBajarFTP = new BajarFTP(stringArchivo);
+				hiloBajarFTP.start();
 			}
 		});
 		add(botonBajar);

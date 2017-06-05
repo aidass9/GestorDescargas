@@ -10,9 +10,14 @@ public class ListarFTP extends Thread {
 	static ArrayList<FTPFile> archivos;
 
 	public void run() {
-		String ftpServer = "10.2.1.148";
+		
+		String ftpServer = "localhost";
 		String ftpUsuario = "ftpClient";
 		String ftpPass = "1234";
+		
+		/*String ftpServer = "10.2.1.148";
+		String ftpUsuario = "ftpClient";
+		String ftpPass = "1234";*/
 		
 		FTPClient clienteFTP = new FTPClient();
 		

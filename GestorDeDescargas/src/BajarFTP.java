@@ -1,4 +1,6 @@
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
@@ -7,33 +9,30 @@ import org.apache.commons.net.ftp.FTPFile;
 
 
 public class BajarFTP extends Thread {
+
+	//private String nombreArchivoFTP, nombreArchivoBajado;
 	
-	//String nomArchivoDescargar = InterfazBajarFTP.stringArchivo;
+	//public BajarFTP(String nombreOrigen, String nombreDestino) {
+		//this.nombreArchivoFTP = nombreOrigen;
+		//this.nombreArchivoBajado = nombreDestino;
+	//}
 	
-	private String nombreArchivoFTP, nombreArchivoBajado;
+	private String nombreArchivoFTP;
+	static ArrayList<FTPFile> archivos;
 	
-	public BajarFTP(String nombreOrigen, String nombreDestino) {
-		this.nombreArchivoFTP = nombreOrigen;
-		this.nombreArchivoBajado = nombreDestino;
+	public BajarFTP(String nombreArchivoFTP) {
+		this.nombreArchivoFTP = nombreArchivoFTP;
 	}
 	
-	//private FTPFile archivoFTP;
-	//private String nombreArchivo;
-	
-	/*BajarFTP(FTPFile archivoFTP, String nombreArchivo) {
-		this.archivoFTP = archivoFTP;
-		if (nombreArchivo.equals("")) {
-			this.nombreArchivo = archivoFTP.getName();
-		}
-		else {
-			this.nombreArchivo = nombreArchivo;
-		}
-	}*/
-	
 	public void run() {
-		String ftpServer = "10.2.1.148";
+		
+		String ftpServer = "localhost";
 		String ftpUsuario = "ftpClient";
 		String ftpPass = "1234";
+		
+		/*String ftpServer = "10.2.1.148";
+		String ftpUsuario = "ftpClient";
+		String ftpPass = "1234";*/
 		
 		FTPClient clienteFTP = new FTPClient();
 		
@@ -43,16 +42,16 @@ public class BajarFTP extends Thread {
 			System.out.println("Conexión FTP correcta");
 			
 			boolean condicion = false;
-			
+			archivos = new ArrayList<FTPFile>(Arrays.asList(clienteFTP.listFiles()));
 				//---------------------------
-			for(int i = 0; i <= ListarFTP.archivos.size(); i++) {
+			/*for(int i = 0; i <= ListarFTP.archivos.size(); i++) {
 				if(ListarFTP.archivos.equals(nombreArchivoFTP)) {
 					condicion = true;
 					break;
 				}
-			}
+			}*/
 			
-			for(FTPFile archivo : ListarFTP.archivos) {
+			for(FTPFile archivo : archivos) {
 				if(archivo.getName().equals(nombreArchivoFTP)) {
 					condicion = true;
 					break;
@@ -62,14 +61,17 @@ public class BajarFTP extends Thread {
 			
 			clienteFTP.enterLocalPassiveMode();
 			
-			FileOutputStream fos = new FileOutputStream(nombreArchivoBajado);
+			FileOutputStream fos = new FileOutputStream("Descargas/" + nombreArchivoFTP);
 			clienteFTP.retrieveFile(nombreArchivoFTP, fos);
+			
+			JOptionPane.showMessageDialog(null, "¡Archivo descargado!");
 			
 			clienteFTP.logout();
 			clienteFTP.disconnect();
 		}
 		
 		catch (Exception e) {
+			System.out.println(e.toString());
 			System.out.println("Fallo al descargar el archivo");
 			JOptionPane.showMessageDialog(null, "¡Fallo al descargar el archivo!");
 		}

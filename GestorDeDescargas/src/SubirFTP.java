@@ -31,7 +31,7 @@ public class SubirFTP extends Thread {
 		String ftpPass = "ftpdrivehq123";*/
 		
 		String ftpServer = "localhost";
-		String ftpUsuario = "aida";
+		String ftpUsuario = "ftpClient";
 		String ftpPass = "1234";
 		
 		/*String ftpServer = "10.2.1.148";
